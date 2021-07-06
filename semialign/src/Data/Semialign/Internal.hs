@@ -28,7 +28,10 @@ import Data.List.NonEmpty                (NonEmpty (..))
 import Data.Maybe                        (catMaybes)
 import Data.Monoid                       (Monoid (..))
 import Data.Proxy                        (Proxy (..))
-import Data.Semigroup                    (Option (..), Semigroup (..))
+#if !MIN_VERSION_base(4,16,0)
+import Data.Semigroup                    (Option (..))
+#endif
+import Data.Semigroup                    (Semigroup (..))
 import Data.Sequence                     (Seq)
 import Data.Tagged                       (Tagged (..))
 import Data.Vector.Fusion.Stream.Monadic (Step (..), Stream (..))
@@ -481,12 +484,14 @@ instance SemialignWithIndex Int NonEmpty
 instance ZipWithIndex Int NonEmpty
 instance RepeatWithIndex Int NonEmpty
 
+#if !MIN_VERSION_base(4,16,0)
 deriving instance Semialign Option
 deriving instance Align Option
 deriving instance Unalign Option
 deriving instance Zip Option
 deriving instance Repeat Option
 deriving instance Unzip Option
+#endif
 
 {-
 deriving instance SemialignWithIndex () Option
